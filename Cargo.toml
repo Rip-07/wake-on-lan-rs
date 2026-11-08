@@ -1,0 +1,21 @@
+[package]
+name = "wol_server"
+version = "1.0.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+axum = "0.7"
+tokio = { version = "1", features = ["full"] }
+sea-orm = { version = "1.1", features = ["runtime-tokio-rustls", "sqlx-postgres", "macros"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+[profile.release]
+opt-level = 3         # Максимальная оптимизация скорости кода
+lto = true            # Link-Time Optimization (удаляет неиспользуемый код из библиотек)
+codegen-units = 1     # Уменьшает количество параллельных потоков компиляции ради лучшей оптимизации
+panic = "abort"       # Убирает громоздкие бэктрейсы при паниках, уменьшая размер бинарника и ускоряя работу
+strip = true          # Полностью вырезает отладочные символы из готового файла (минус размер)

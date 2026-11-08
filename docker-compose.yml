@@ -1,0 +1,11 @@
+services:
+  wol-server:
+    container_name: wol-server
+    build: .
+    network_mode: host
+    restart: unless-stopped
+    init: true
+    environment:
+      API_KEY: "${API_KEY:?API_KEY is required}"
+      DATABASE_URL: "${DATABASE_URL:?DATABASE_URL is required}"
+      PORT: "${HOST_PORT:-8084}"
